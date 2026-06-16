@@ -6,7 +6,7 @@
     "install:all": "npm install && cd client && npm install && cd ../server && npm install",
     "build": "cd client && npm run build",
     "start": "cd server && npm start"
-  }
+  },
   "keywords": ["three.js", "socket.io", "multiplayer", "game"],
   "author": "",
   "license": "MIT",
