@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: multiplayer-arena
+    env: node
+    buildCommand: npm run install:all && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: PORT
+        value: 3000
+
+databases:
+  - name: arena-db
+    databaseName: arena
+    user: arena_user
