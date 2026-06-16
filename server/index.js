@@ -13,7 +13,7 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: process.env.CLIENT_URL || 'http://localhost:5173',
+    origin: '*',  // разреши все источники
     methods: ['GET', 'POST']
   }
 });
@@ -37,14 +37,15 @@ socketHandler(io);
 // Инициализация базы данных
 initDatabase()
   .then(() => {
-    console.log(' Database initialization completed');
+    console.log('✅ Database initialization completed');
   })
   .catch((error) => {
-    console.error(' Database initialization failed:', error.message);
+    console.error('❌ Database initialization failed:', error.message);
   });
 
 // Start server
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
- 
+  console.log(`🚀 Server running on port ${PORT}`);
+  console.log(`🌐 Environment: ${process.env.NODE_ENV}`);
 });
