@@ -3,13 +3,10 @@
   "version": "1.0.0",
   "description": "Multiplayer 3D Arena with chat and authentication",
   "scripts": {
-    "install:all": "npm install && cd server && npm install && cd ../client && npm install",
-    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
-    "dev:server": "cd server && npm run dev",
-    "dev:client": "cd client && npm run dev",
+    "install:all": "npm install && cd client && npm install && cd ../server && npm install",
     "build": "cd client && npm run build",
     "start": "cd server && npm start"
-  },
+  }
   "keywords": ["three.js", "socket.io", "multiplayer", "game"],
   "author": "",
   "license": "MIT",
