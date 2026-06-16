@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multiplayer Arena - Login</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="auth-container">
+    <div class="auth-box">
+      <h1> Multiplayer Arena</h1>
+      
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="login">Вход</button>
+        <button class="tab-btn" data-tab="register">Регистрация</button>
+      </div>
+      
+      <form id="login-form" class="auth-form active">
+        <input type="text" id="login-username" placeholder="Имя пользователя" required>
+        <input type="password" id="login-password" placeholder="Пароль" required>
+        <button type="submit" class="btn-primary">Войти</button>
+      </form>
+      
+      <form id="register-form" class="auth-form">
+        <input type="text" id="register-username" placeholder="Имя пользователя (мин. 3 символа)" required>
+        <input type="password" id="register-password" placeholder="Пароль (мин. 6 символов)" required>
+        <button type="submit" class="btn-primary">Зарегистрироваться</button>
+      </form>
+      
+      <div id="auth-error" class="error-message"></div>
+    </div>
+  </div>
+  
+  <script>
+    // Переключение вкладок
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const tab = btn.dataset.tab;
+        
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        
+        document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
+        document.getElementById(`${tab}-form`).classList.add('active');
+        
+        document.getElementById('auth-error').textContent = '';
+      });
+    });
+    
+    // Вход
+    document.getElementById('login-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const username = document.getElementById('login-username').value;
+      const password = document.getElementById('login-password').value;
+      
+      try {
+        const response = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password })
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+          localStorage.setItem('token', data.token);
+          localStorage.setItem('user', JSON.stringify(data.user));
+          window.location.href = '/';
+        } else {
+          document.getElementById('auth-error').textContent = data.error;
+        }
+      } catch (error) {
+        document.getElementById('auth-error').textContent = 'Ошибка подключения';
+      }
+    });
+    
+    // Регистрация
+    document.getElementById('register-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const username = document.getElementById('register-username').value;
+      const password = document.getElementById('register-password').value;
+      
+      try {
+        const response = await fetch('/api/auth/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password })
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+          localStorage.setItem('token', data.token);
+          localStorage.setItem('user', JSON.stringify(data.user));
+          window.location.href = '/';
+        } else {
+          document.getElementById('auth-error').textContent = data.error;
+        }
+      } catch (error) {
+        document.getElementById('auth-error').textContent = 'Ошибка подключения';
+      }
+    });
+    
+    // Проверка токена
+    if (localStorage.getItem('token')) {
+      window.location.href = '/';
+    }
+  </script>
+</body>
+</html>
