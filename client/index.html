@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multiplayer Arena</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="loading" class="loading">
+    <div class="spinner"></div>
+    <p>Загрузка...</p>
+  </div>
+  
+  <div id="game-container"></div>
+  
+  <div id="ui-overlay">
+    <div id="player-info">
+      <span id="username"></span>
+      <span id="room-info"></span>
+    </div>
+    
+    <div id="chat-container" class="hidden">
+      <div id="chat-messages"></div>
+      <div id="chat-input-container">
+        <input type="text" id="chat-input" placeholder="Введите сообщение..." maxlength="500">
+        <button id="chat-send">➤</button>
+      </div>
+    </div>
+    
+    <div id="controls-hint">
+      <p><strong>WASD</strong> - движение | <strong>Enter</strong> - чат | <strong>Esc</strong> - закрыть чат</p>
+    </div>
+  </div>
+  
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
