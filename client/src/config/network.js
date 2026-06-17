@@ -1,6 +1,6 @@
 // Определяем базовый URL для сокетов
 // В разработке Vite проксирует запросы, в продакшене используем относительный путь
-export const SOCKET_URL = import.meta.env.DEV ? 'http://localhost:3000' : window.location.origin;
+export const SOCKET_URL = window.location.origin;
 
 export const NETWORK_CONFIG = {
   reconnection: true,
