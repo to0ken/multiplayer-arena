@@ -8,7 +8,9 @@ services:
       - key: NODE_ENV
         value: production
       - key: DATABASE_URL
-        sync: false
+        fromDatabase:
+          name: arena-db
+          property: connectionString
       - key: JWT_SECRET
         generateValue: true
       - key: PORT
