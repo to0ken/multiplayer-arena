@@ -15,6 +15,8 @@ services:
         generateValue: true
       - key: PORT
         value: 3000
+      - key: PGSSLMODE
+        value: no-verify
 
 databases:
   - name: arena-db
