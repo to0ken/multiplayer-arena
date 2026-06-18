@@ -16,14 +16,11 @@ class ChatManager {
         return;
       }
       
-
       const userId = player.userId || null;
-      
-     
       
       // Сохранить в БД
       const savedMessage = await saveChatMessage(
-        userId,  //  числовой ID
+        userId,
         player.username,
         message.trim()
       );
@@ -37,11 +34,15 @@ class ChatManager {
         userId: userId
       };
       
-      // Отправить всем в комнате
-      this.io.to(socket.rooms).emit('new-chat-message', chatMessage);
+    // всем 
+      this.io.emit('new-chat-message', chatMessage);
       
+      console.log('💬 Chat message sent:', chatMessage.username, '-', chatMessage.message);
       
-    } 
+    } catch (error) {
+      console.error('❌ Error handling chat message:', error);
+      socket.emit('error', { message: 'Failed to send message' });
+    }
   }
 }
 
