@@ -71,6 +71,8 @@ export class Game {
   _setupNetworkCallbacks() {
     this.network.callbacks.onRoomJoined = (data) => {
       this.localPlayerId = this.network.socket.id;
+      const localData = data.players.find(p => p.id === this.localPlayerId);
+      
       document.getElementById('username').textContent = `👤 ${data.players.find(p => p.id === this.localPlayerId).username}`;
       document.getElementById('room-info').textContent = `🏠 Комната: ${data.roomId} (${data.players.length}/2)`;
       
