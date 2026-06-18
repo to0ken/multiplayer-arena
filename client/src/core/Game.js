@@ -70,27 +70,26 @@ export class Game {
 
   _setupNetworkCallbacks() {
     this.network.callbacks.onRoomJoined = (data) => {
-      this.localPlayerId = this.network.socket.id;
-      const localData = data.players.find(p => p.id === this.localPlayerId);
-      
-      document.getElementById('username').textContent = `👤 ${data.players.find(p => p.id === this.localPlayerId).username}`;
-      document.getElementById('room-info').textContent = `🏠 Комната: ${data.roomId} (${data.players.length}/2)`;
-      
-      // Создаем локального игрока
-      const localData = data.players.find(p => p.id === this.localPlayerId);
-      const localPlayer = new Player(localData.id, localData.username, localData.color, true);
-      localPlayer.addToScene(this.scene);
-      this.players.set(localData.id, localPlayer);
+  this.localPlayerId = this.network.socket.id;
+  const localData = data.players.find(p => p.id === this.localPlayerId);
+  
+  document.getElementById('username').textContent = `👤 ${localData.username}`;
+  document.getElementById('room-info').textContent = `🏠 Комната: ${data.roomId} (${data.players.length}/2)`;
+  
+  // Создаем локального игрока (УБРАЛИ дублирование const localData)
+  const localPlayer = new Player(localData.id, localData.username, localData.color, true);
+  localPlayer.addToScene(this.scene);
+  this.players.set(localData.id, localPlayer);
 
-      // Создаем удаленных игроков, если они уже есть в комнате
-      data.players.forEach(p => {
-        if (p.id !== this.localPlayerId) {
-          this._addRemotePlayer(p);
-        }
-      });
+  // Создаем удаленных игроков
+  data.players.forEach(p => {
+    if (p.id !== this.localPlayerId) {
+      this._addRemotePlayer(p);
+    }
+  });
 
-      document.getElementById('loading').style.display = 'none';
-    };
+  document.getElementById('loading').style.display = 'none';
+};
 
     this.network.callbacks.onPlayerJoined = (playerData) => {
       this._addRemotePlayer(playerData);
