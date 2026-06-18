@@ -39,6 +39,7 @@ multiplayer-arena/
 На Render нет папки node_modules, при деплое нужно установить все пакеты с нуля.
 Этот скрипт делает всё одной командой, без него необходтио зпходить в каждый файл
 
+```
 {
   "name": "multiplayer-arena",
   "scripts": {
@@ -47,7 +48,7 @@ multiplayer-arena/
     "start": "cd server && npm start"
   }
 }
-
+```
 
 ШАГ3 Создание PostgreSQL БД и Web Service на Render.
 назвав бд - arena-db и выбрав бесплатный тариф я перешла на сервис.
@@ -73,9 +74,10 @@ multiplayer-arena/
 1 Ошибка: ECONNREFUSED или localhost:3000
 Причина: Клиент подключается к localhost вместо Render
 Решение:
+```
 // client/src/config/network.js
 export const SOCKET_URL = window.location.origin;
-
+```
 
 2 Ошибка: Database initialization error
 Причины:
