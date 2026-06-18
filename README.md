@@ -7,7 +7,7 @@ https://multiplayer-arena-5.onrender.com
 ШАГ1 подготовка проекта к деплою. 
 
 -------------------------------------------------------------------------
-
+```
 multiplayer-arena/
 ├── client/                 # Клиентская часть (Vite + Three.js)
 │   ├── src/
@@ -32,7 +32,7 @@ multiplayer-arena/
 │   └── package.json
 ├── package.json            # Корневой package.json
 └── .gitignore
-
+```
 -------------------------------------------------------------------------
 
 ШАГ2 в package.json  Установка всех зависимостей проекта.
