@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: {
-    rejectUnauthorized: false  // Важно для Render!
+    rejectUnauthorized: false  // Важно для Render
   }
 });
 
@@ -34,10 +34,10 @@ const initDatabase = async () => {
       )
     `);
     
-    console.log('✅ Database tables initialized');
+    console.log(' Database tables initialized');
     client.release();
   } catch (error) {
-    console.error('❌ Database initialization error:', error.message);
+    console.error(' Database initialization error:', error.message);
   }
 };
 
