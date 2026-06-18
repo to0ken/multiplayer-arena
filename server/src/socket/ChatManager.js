@@ -16,14 +16,14 @@ class ChatManager {
         return;
       }
       
-      // Используем userId из базы данных, а не socket.id!
+
       const userId = player.userId || null;
       
-      console.log('💾 Saving message:', message, 'from:', player.username, 'userId:', userId);
+     
       
       // Сохранить в БД
       const savedMessage = await saveChatMessage(
-        userId,  // ← Теперь передаём числовой ID
+        userId,  //  числовой ID
         player.username,
         message.trim()
       );
@@ -40,11 +40,8 @@ class ChatManager {
       // Отправить всем в комнате
       this.io.to(socket.rooms).emit('new-chat-message', chatMessage);
       
-      console.log(`💬 [${player.username}]: ${message}`);
-    } catch (error) {
-      console.error('❌ Error handling chat message:', error);
-      socket.emit('error', { message: 'Failed to send message' });
-    }
+      
+    } 
   }
 }
 
