@@ -9,7 +9,6 @@ module.exports = (io) => {
   const chatManager = new ChatManager(io);
   
   io.on('connection', (socket) => {
-    console.log(`🔌 Player connected: ${socket.id}`);
     
     let currentPlayer = null;
     let currentRoom = null;
@@ -43,7 +42,7 @@ module.exports = (io) => {
         currentPlayer = room.players.get(socket.id);
         currentRoom = room;
         
-        console.log(`✅ Player ${userData.username} joined room ${room.id} (${room.players.size}/${config.game.maxPlayersPerRoom})`);
+       
         
         // Отправить текущее состояние комнаты
         socket.emit('room-joined', {
@@ -87,7 +86,7 @@ module.exports = (io) => {
     
     // Отключение
     socket.on('disconnect', () => {
-      console.log(`🔌 Player disconnected: ${socket.id}`);
+    
       
       if (currentRoom) {
         currentRoom.removePlayer(socket.id);
@@ -98,7 +97,7 @@ module.exports = (io) => {
         // Удалить комнату если пуста
         if (currentRoom.players.size === 0) {
           rooms.delete(currentRoom.id);
-          console.log(`🗑️ Room ${currentRoom.id} removed`);
+        
         }
       }
     });
